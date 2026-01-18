@@ -5,11 +5,6 @@
 # └── apply_jump()     ← board rule
 
 
-import random
-from ftplib import parse150
-from wsgiref.util import application_uri
-
-
 class SnakesLadders():
     jumps = {
         2:38,
@@ -45,22 +40,41 @@ class SnakesLadders():
             return self.jumps[pos]
         return pos
 
+    def bounce(self, pos):
+        overshoot = pos - 100
+        if pos > 100:
+            pos = 100 - overshoot
+            return pos
+        return pos
+
     def play(self, die1, die2):
-        if self.p1_position or self.p2_position == 100:
+        if self.p1_position == 100 or self.p2_position == 100:
             return "Game over!"
         dice_total = die1 + die2
         if self.current == 0:
             pos = self.p1_position + dice_total
+            pos = self.bounce(pos)
             pos = self.apply_jump(pos)
             self.p1_position = pos
             if die1 != die2:
                 self.current = 1
+            if self.p1_position == 100:
+                return "Player 1 Wins!"
+            else:
+                return f"Player 1 is on square {self.p1_position}"
+
 
         elif self.current == 1:
             pos = self.p2_position + dice_total
-            self.p2_position = self.apply_jump(pos)
+            pos = self.bounce(pos)
+            pos = self.apply_jump(pos)
+            self.p2_position = pos
             if die1 != die2:
                 self.current = 0
+            if self.p2_position == 100:
+                return "Player 2 Wins!"
+            else:
+                return f"Player 2 is on square {self.p2_position}"
 
         else:
             return "Error: current player is unknown"
