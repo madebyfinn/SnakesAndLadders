@@ -4,13 +4,13 @@ This project is a Python implementation of the classic Snakes and Ladders board 
 
 The game is implemented as a single SnakesLadders class exposing a play(die1, die2) method. Each call to play represents one dice roll and updates the game state accordingly, allowing the test suite to invoke the method independently of turn order or prior context.
 
-Features
-	•	Two-player turn-based gameplay starting from square 0
-	•	Fully implemented snakes and ladders using a fixed board mapping
-	•	Bounce-back logic when a roll overshoots square 100
-	•	Support for extra turns when rolling doubles
-	•	Exact-win condition required to finish the game
-	•	Clear, test-friendly return messages describing game state
+Features:
+ - Two-player turn-based gameplay starting from square 0
+ - Fully implemented snakes and ladders using a fixed board mapping
+ - Bounce-back logic when a roll overshoots square 100
+ - Support for extra turns when rolling doubles
+ - Exact-win condition required to finish the game
+ - Clear, test-friendly return messages describing game state
 
 The solution separates board data (snakes and ladders) from game logic, with helper methods handling movement rules such as bouncing and teleports. This keeps the main play() method readable and closely aligned with the actual game rules.
 
