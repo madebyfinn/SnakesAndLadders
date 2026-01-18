@@ -6,6 +6,9 @@
 
 
 import random
+from ftplib import parse150
+from wsgiref.util import application_uri
+
 
 class SnakesLadders():
     jumps = {
@@ -31,7 +34,11 @@ class SnakesLadders():
         95:75,
         99:80
     }
+
     def __init__(self):
+        self.p1_position = 0
+        self.p2_position = 0
+        self.current = 0
 
     def apply_jump(self, pos):
         if pos in self.jumps:
@@ -39,5 +46,24 @@ class SnakesLadders():
         return pos
 
     def play(self, die1, die2):
-        pos = self.apply_jump(pos)
+        if self.p1_position or self.p2_position == 100:
+            return "Game over!"
+        dice_total = die1 + die2
+        if self.current == 0:
+            pos = self.p1_position + dice_total
+            pos = self.apply_jump(pos)
+            self.p1_position = pos
+            if die1 != die2:
+                self.current = 1
+
+        elif self.current == 1:
+            pos = self.p2_position + dice_total
+            self.p2_position = self.apply_jump(pos)
+            if die1 != die2:
+                self.current = 0
+
+        else:
+            return "Error: current player is unknown"
+
+
 
