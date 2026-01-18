@@ -12,8 +12,6 @@ Features
 	•	Exact-win condition required to finish the game
 	•	Clear, test-friendly return messages describing game state
 
-Design Approach
-
 The solution separates board data (snakes and ladders) from game logic, with helper methods handling movement rules such as bouncing and teleports. This keeps the main play() method readable and closely aligned with the actual game rules.
 
 This kata was completed as a learning exercise, with emphasis on clarity, correctness, and maintainable structure rather than UI or randomness.
